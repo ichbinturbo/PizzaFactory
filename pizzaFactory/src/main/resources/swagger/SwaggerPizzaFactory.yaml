@@ -1,0 +1,330 @@
+openapi: 3.0.2
+info:
+  title: pizzaFactory
+  description: API description
+  version: 1.0.0
+
+paths:
+  /:
+    get:
+      tags:
+        - Pizza
+      description: Description
+      parameters:
+        - name: Name
+          in: path
+          description: Description
+          required: true
+          style: simple
+          explode: false
+          schema:
+            maxLength: 6
+            minLength: 6
+            type: integer
+            example: Example
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: 'Bad Request. Ensure the correct values are supplied. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INVALID_REQUEST:
+                  $ref: '#/components/examples/400-INVALID_REQUEST'
+        '404':
+          description: Not found. The account with supplied account ID is not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NOT_FOUND:
+                  $ref: '#/components/examples/404-NOT_FOUND'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
+        '503':
+          description: Service Unavailable Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
+
+    put:
+      tags:
+        - Pizza
+      description: Description
+      parameters:
+        - name: Name
+          in: path
+          description: Description
+          required: true
+          style: simple
+          explode: false
+          schema:
+            maxLength: 6
+            minLength: 6
+            type: integer
+            example: Example
+      responses:
+        '200':
+          description: Returns a  an acknowledgement message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResponse'
+        '400':
+          description: 'Bad Request. Ensure the correct values are supplied. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INVALID_REQUEST:
+                  $ref: '#/components/examples/400-INVALID_REQUEST'
+        '404':
+          description: Not found. The account with supplied account ID is not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NOT_FOUND:
+                  $ref: '#/components/examples/404-NOT_FOUND'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
+        '503':
+          description: Service Unavailable Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
+    delete:
+      tags:
+        - Pizza
+      description: Supports termination and deletion
+      parameters:
+        - name: Name
+          in: path
+          description: Description
+          required: true
+          style: simple
+          explode: false
+          schema:
+            maxLength: 6
+            minLength: 6
+            type: integer
+            example: Example
+      responses:
+        '200':
+          description: Returns a  an acknowledgement message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '400':
+          description: 'Bad Request. Ensure the correct values are supplied. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INVALID_REQUEST:
+                  $ref: '#/components/examples/400-INVALID_REQUEST'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NOT_FOUND:
+                  $ref: '#/components/examples/404-NOT_FOUND'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
+        '503':
+          description: Service Unavailable Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
+
+    post:
+      tags:
+        - Pizza
+      description: Description
+      responses:
+        '201':
+          description: Returns a Acknowledgement ID with an acknowledgement message.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostResponse'
+        '400':
+          description: 'Bad Request. Ensure the correct values are supplied. '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INVALID_REQUEST:
+                  $ref: '#/components/examples/400-INVALID_REQUEST'
+        '404':
+          description: Not found. The account with supplied account ID is not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NOT_FOUND:
+                  $ref: '#/components/examples/404-NOT_FOUND'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
+        '503':
+          description: Service Unavailable Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                INTERNAL_SERVER_ERROR:
+                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
+components:
+  parameters:
+    consumerRequestId:
+      name: consumerRequestId
+      in: header
+      description: The correlationId to enable traceability
+      required: true
+      schema:
+        type: string
+        example: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+    originalSource:
+      name: originalSource
+      in: header
+      description: Source enabling to identify the calling service
+      schema:
+        type: string
+  schemas:
+    PostResponse:
+      type: object
+      properties:
+        acknowlegementId:
+          type: string
+          description: Acknowledgement ID for successfully accepting the submission
+          example: 9cebc3dc-b5dc-4131-8a41-c6699e8ae56b
+        message:
+          type: string
+          description: Acknowledgement message for successfully accepting the submission
+          example: Thank you, we have received your request for processing
+    UpdateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Acknowledgement message for successfully accepting the submission
+          example: Thank you, we have received your request for processing
+    DeleteResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Acknowledgement message for successfully deletion.
+          example: Thank you, we have received your request for processing
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The error code
+        reason:
+          type: string
+          description: The reason that caused the exception
+        message:
+          type: string
+          description: Detailed message related to the exception occured
+        status:
+          type: string
+          description: Status of the exception(This field can be used as placeholders for now since this is a template for the error model)
+        referenceError:
+          type: string
+          description: The referenceError that caused the exception(This field can be used as placeholders for now since this is a template for the error model)
+        incidentId:
+          type: string
+          description: Correlation ID which provides traceability in case of exception.
+  examples:
+    400-INVALID_REQUEST:
+      summary: Invalid Request Error
+      value:
+        code: 400
+        reason: BAD_REQUEST
+        message: The incoming request is either invalid or malformed
+        status: <placeholder for status>
+        referenceError: <placeholder for reference error>
+        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+    404-NOT_FOUND:
+      summary: Generic Error
+      value:
+        code: 404
+        reason: NOT_FOUND
+        message: No results matched supplied values
+        status: <placeholder for status>
+        referenceError: <placeholder for reference error>
+        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+    500-INTERNAL_SERVER_ERROR:
+      summary: System Error
+      value:
+        code: 500
+        reason: INTERNAL_SERVER_ERROR
+        message: System Error. Internal service error has occurred
+        status: <placeholder for status>
+        referenceError: <placeholder for reference error>
+        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+    503-SERVICE_UNAVAILABLE:
+      summary: System Error
+      value:
+        code: 503
+        reason: SERVICE_UNAVAILABLE
+        message: System Error. Currently the Service is unavailable for this request
+        status: <placeholder for status>
+        referenceError: <placeholder for reference error>
+        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
