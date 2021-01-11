@@ -1,330 +1,270 @@
 openapi: 3.0.2
 info:
-  title: pizzaFactory
-  description: API description
-  version: 1.0.0
-
+  title: Order-api
+  description: The experience API for integration between the order UI and the api micro-services in the backend
+  version: 1.0.1
 paths:
-  /:
+  /options/toppings:
     get:
+      summary: Gets all the toppings
+      description: Gets all the toppings
+      operationId: getAllToppings
       tags:
-        - Pizza
-      description: Description
-      parameters:
-        - name: Name
-          in: path
-          description: Description
-          required: true
-          style: simple
-          explode: false
-          schema:
-            maxLength: 6
-            minLength: 6
-            type: integer
-            example: Example
+      - Orders
       responses:
         '200':
-          description: OK
-        '400':
-          description: 'Bad Request. Ensure the correct values are supplied. '
+          description: Successful request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/CanonicalModelWithToppings'
               examples:
-                INVALID_REQUEST:
-                  $ref: '#/components/examples/400-INVALID_REQUEST'
-        '404':
-          description: Not found. The account with supplied account ID is not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                NOT_FOUND:
-                  $ref: '#/components/examples/404-NOT_FOUND'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
-        '503':
-          description: Service Unavailable Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
-
-    put:
+                Toppings:
+                  $ref: '#/components/examples/CanonicalModelWithToppings'
+  /options/bases:
+    get:
+      summary: Gets all the bases
+      description: Gets all the bases
+      operationId: getAllBases
       tags:
-        - Pizza
-      description: Description
-      parameters:
-        - name: Name
-          in: path
-          description: Description
-          required: true
-          style: simple
-          explode: false
-          schema:
-            maxLength: 6
-            minLength: 6
-            type: integer
-            example: Example
+      - Orders
       responses:
         '200':
-          description: Returns a  an acknowledgement message.
+          description: Successful request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateResponse'
-        '400':
-          description: 'Bad Request. Ensure the correct values are supplied. '
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/CanonicalModelWithBase'
               examples:
-                INVALID_REQUEST:
-                  $ref: '#/components/examples/400-INVALID_REQUEST'
-        '404':
-          description: Not found. The account with supplied account ID is not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                NOT_FOUND:
-                  $ref: '#/components/examples/404-NOT_FOUND'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
-        '503':
-          description: Service Unavailable Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
-    delete:
-      tags:
-        - Pizza
-      description: Supports termination and deletion
-      parameters:
-        - name: Name
-          in: path
-          description: Description
-          required: true
-          style: simple
-          explode: false
-          schema:
-            maxLength: 6
-            minLength: 6
-            type: integer
-            example: Example
-      responses:
-        '200':
-          description: Returns a  an acknowledgement message.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteResponse'
-        '400':
-          description: 'Bad Request. Ensure the correct values are supplied. '
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INVALID_REQUEST:
-                  $ref: '#/components/examples/400-INVALID_REQUEST'
-        '404':
-          description: Not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                NOT_FOUND:
-                  $ref: '#/components/examples/404-NOT_FOUND'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
-        '503':
-          description: Service Unavailable Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
-
+                Toppings:
+                  $ref: '#/components/examples/CanonicalModelWithBase'                
+  /orders: 
     post:
+      summary: Creates an order.
+      description: Creates an order in the database using the Json body sent with the request
+      operationId: postOrder
       tags:
-        - Pizza
-      description: Description
+      - Orders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CanonicalModelWithOrder'
+            examples:
+              OrderNoId:
+                $ref: '#/components/examples/CanonicalModelWithOrder'
       responses:
         '201':
-          description: Returns a Acknowledgement ID with an acknowledgement message.
+          description: Successful request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostResponse'
-        '400':
-          description: 'Bad Request. Ensure the correct values are supplied. '
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/CanonicalModelWithOrderWithTime'
               examples:
-                INVALID_REQUEST:
-                  $ref: '#/components/examples/400-INVALID_REQUEST'
-        '404':
-          description: Not found. The account with supplied account ID is not found.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                NOT_FOUND:
-                  $ref: '#/components/examples/404-NOT_FOUND'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/500-INTERNAL_SERVER_ERROR'
-        '503':
-          description: Service Unavailable Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                INTERNAL_SERVER_ERROR:
-                  $ref: '#/components/examples/503-SERVICE_UNAVAILABLE'
-components:
-  parameters:
-    consumerRequestId:
-      name: consumerRequestId
-      in: header
-      description: The correlationId to enable traceability
-      required: true
-      schema:
-        type: string
-        example: e30bc719-ff94-4b1c-8567-ecc01fcefe85
-    originalSource:
-      name: originalSource
-      in: header
-      description: Source enabling to identify the calling service
-      schema:
-        type: string
-  schemas:
-    PostResponse:
-      type: object
-      properties:
-        acknowlegementId:
-          type: string
-          description: Acknowledgement ID for successfully accepting the submission
-          example: 9cebc3dc-b5dc-4131-8a41-c6699e8ae56b
-        message:
-          type: string
-          description: Acknowledgement message for successfully accepting the submission
-          example: Thank you, we have received your request for processing
-    UpdateResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Acknowledgement message for successfully accepting the submission
-          example: Thank you, we have received your request for processing
-    DeleteResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Acknowledgement message for successfully deletion.
-          example: Thank you, we have received your request for processing
-    Error:
-      type: object
-      properties:
-        code:
+                IdAcknowledgement:
+                  $ref: '#/components/examples/CanonicalModelWithOrderWithTime'  
+  /orders/{orderId}:
+    get:
+      summary: Gets order by order Id
+      description: Get order of pizza by ID
+      operationId: getOrderByOrderId
+      tags:
+      - Orders
+      parameters:
+      - name: orderId
+        in: path
+        description: ID of order/s whose order the request will return
+        required: true
+        schema:
           type: integer
-          description: The error code
-        reason:
+          example: 1234
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CanonicalModelWithOrderWithTime'
+              examples:
+                Profile:
+                  $ref: '#/components/examples/CanonicalModelWithOrderWithTime'                
+components:
+  schemas:
+    ToppingList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Toppings'
+    BaseList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Base'
+    Toppings:
+      type: object
+      properties:
+        name:
           type: string
-          description: The reason that caused the exception
-        message:
+        price:
+          type: integer
+        cookingTime:
+          type: integer
+          
+      items:
+        type: string
+    Base:
+      type: object
+      properties:
+        name:
           type: string
-          description: Detailed message related to the exception occured
-        status:
+        price:
+          type: integer
+        cookingTime:
+          type: integer
+          
+    Time:
+      type: integer
+      
+    OrderId:
+      type: integer
+      minLength: 1
+      maxLength: 500
+    CanonicalModelWithBase: 
+      type: object
+      properties:
+        correlationId:
           type: string
-          description: Status of the exception(This field can be used as placeholders for now since this is a template for the error model)
-        referenceError:
+          format: uuid
+        sessionId:
           type: string
-          description: The referenceError that caused the exception(This field can be used as placeholders for now since this is a template for the error model)
-        incidentId:
+          format: uuid
+        payload:
+          $ref: '#/components/schemas/BaseList'
+        error:
+          example: null
+    CanonicalModelWithToppings:
+      type: object
+      properties:
+        correlationId:
           type: string
-          description: Correlation ID which provides traceability in case of exception.
+          format: uuid
+        sessionId:
+          type: string
+          format: uuid
+        payload:
+          $ref: '#/components/schemas/ToppingList'
+        error:
+          example: null  
+    CanonicalModelWithOrder: 
+      type: object
+      properties:
+        correlationId:
+          type: string
+          format: uuid
+        sessionId:
+          type: string
+          format: uuid
+        payload:
+          type: object
+          properties:
+            Toppings:
+              $ref: '#/components/schemas/Toppings'
+            Base: 
+              $ref: '#/components/schemas/Base'
+        error:
+          example: null   
+    CanonicalModelWithOrderWithTime: 
+      type: object
+      properties:
+        correlationId:
+          type: string
+          format: uuid
+        sessionId:
+          type: string
+          format: uuid
+        payload:
+          type: object
+          properties:
+              Time:
+                $ref: '#/components/schemas/Time'
+              OrderID: 
+                $ref: '#/components/schemas/OrderId'
+        error:
+          example: null   
   examples:
-    400-INVALID_REQUEST:
-      summary: Invalid Request Error
+    CanonicalModelWithToppings:
+      summary: Example with a response (with id) for a post request
       value:
-        code: 400
-        reason: BAD_REQUEST
-        message: The incoming request is either invalid or malformed
-        status: <placeholder for status>
-        referenceError: <placeholder for reference error>
-        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
-    404-NOT_FOUND:
-      summary: Generic Error
+        correlationId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        sessionId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        payload:
+          Toppings: 
+          - Name: Cheese
+            Price: 1.99
+            CookingTime: 100
+          - Name: Tomato
+            Price: 2.99
+            CookingTime: 150
+          - Name: Basil
+            Price: 3.99
+            CookingTime: 200
+          - Name: Sweetcorn
+            Price: 3.99
+            CookingTime: 200
+        error: null 
+    CanonicalModelWithOrder:
+      summary: Example with one order in the payload
       value:
-        code: 404
-        reason: NOT_FOUND
-        message: No results matched supplied values
-        status: <placeholder for status>
-        referenceError: <placeholder for reference error>
-        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
-    500-INTERNAL_SERVER_ERROR:
-      summary: System Error
+        correlationId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        sessionId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        payload:
+          Toppings:
+          - cheese
+          - tomato
+          - basil
+          Base: Thin crust
+        error: null    
+    CanonicalModelWithOrderNoId:
+      summary: Example with one profile in the payload (no id)
       value:
-        code: 500
-        reason: INTERNAL_SERVER_ERROR
-        message: System Error. Internal service error has occurred
-        status: <placeholder for status>
-        referenceError: <placeholder for reference error>
-        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
-    503-SERVICE_UNAVAILABLE:
-      summary: System Error
+        correlationId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        sessionId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        payload:
+          Toppings:
+          - cheese
+          Base: Thin crust
+        error: null    
+    CanonicalModelWithIdAcknowledgement:
+      summary: Example with a response (with id) for a post request
       value:
-        code: 503
-        reason: SERVICE_UNAVAILABLE
-        message: System Error. Currently the Service is unavailable for this request
-        status: <placeholder for status>
-        referenceError: <placeholder for reference error>
-        incidentId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        correlationId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        sessionId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        payload:
+          UserId: 1234
+          Acknowledgement: 9cebc3dc-b5dc-4131-8a41-c6699e8ae56b
+          Message: Thank you, we have received your request for processing
+        error: null
+    CanonicalModelWithBase:
+      summary: Example with a response (with id) for a post request
+      value:
+        correlationId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        sessionId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        payload:
+          - Name: Thin Crust
+            Price: 1.99
+            CookingTime: 100
+          - Name: Deep Pan
+            Price: 2.99
+            CookingTime: 150
+          - Name: Third Option
+            Price: 3.99
+            CookingTime: 200
+        error: null      
+    CanonicalModelWithOrderWithTime: 
+      summary: Example with a response (with id) for a post request
+      value:
+        correlationId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        sessionId: e30bc719-ff94-4b1c-8567-ecc01fcefe85
+        payload: 
+          Time: 600
+          OrderId: 1234
+        error: null  
+                  

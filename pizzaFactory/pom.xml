@@ -114,6 +114,26 @@
 			<version>3.17.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>6.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-guice</artifactId>
+			<version>6.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>6.6.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -186,8 +206,8 @@
 						</goals>
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/swagger/SwaggerPizzaFactory.yaml</inputSpec>
-							<modelPackage>com.ntt.altemista.hackathon.model.domain</modelPackage>
-							<apiPackage>com.ntt.altemista.hackathon.controller</apiPackage>
+							<modelPackage>com.ntt.model.domain</modelPackage>
+							<apiPackage>com.ntt.controller</apiPackage>
 							<verbose>false</verbose>
 							<configHelp>false</configHelp>
 							<language>spring</language>
@@ -295,7 +315,7 @@
 						</goals>
 						<configuration>
 							<glue>
-								<package>com.nttdata.altemista</package>
+								<package>com.ntt</package>
 							</glue>
 							<plugins>
 								<plugin>
