@@ -1,11 +1,15 @@
 package com.ntt.config;
 
-import com.ntt.domain.PizzaDomain;
-import com.ntt.repository.PizzaRepository;
-import com.ntt.service.PizzaService;
+
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
+
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.ntt.domain.OrdersDomain;
+import com.ntt.service.*;
+import com.ntt.repository.*;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -16,20 +20,20 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class ApplicationConfiguration{
     @Bean
-    PizzaService PizzaService(){
-        return new PizzaService();
+    OrdersService OrdersService(){
+        return new OrdersService();
     }
 
     @Bean
-    PizzaRepository PizzaRepository(){
-        return new PizzaRepository();
-    }
+    OrdersRepository OrdersRepository() {
+		return new OrdersRepository();
+	}
 
-    @Bean
-    PizzaDomain getPizzaDomain(@Qualifier("PizzaService") PizzaService PizzaService,
-                                   @Qualifier("PizzaRepository") PizzaRepository PizzaRepository){
-        return new PizzaDomain(PizzaService, PizzaRepository);
-    }
+	@Bean
+	OrdersDomain getOrdersDomain(
+			@Qualifier("OrdersRepository") OrdersRepository OrdersRepository) {
+		return new OrdersDomain(OrdersRepository);
+	}
 
     @Bean
     public Docket customImplementation() {

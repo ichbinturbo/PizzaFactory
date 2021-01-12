@@ -107,9 +107,6 @@ components:
           type: integer
         cookingTime:
           type: integer
-          
-      items:
-        type: string
     Base:
       type: object
       properties:
@@ -119,7 +116,13 @@ components:
           type: integer
         cookingTime:
           type: integer
-          
+    OrderItem:
+      type: object
+      properties:
+        Time:
+          $ref: '#/components/schemas/Time'
+        OrderId:
+          $ref: '#/components/schemas/OrderId'
     Time:
       type: integer
       
@@ -181,12 +184,7 @@ components:
           type: string
           format: uuid
         payload:
-          type: object
-          properties:
-              Time:
-                $ref: '#/components/schemas/Time'
-              OrderID: 
-                $ref: '#/components/schemas/OrderId'
+          $ref: '#/components/schemas/OrderItem'
         error:
           example: null   
   examples:

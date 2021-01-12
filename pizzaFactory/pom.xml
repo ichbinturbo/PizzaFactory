@@ -302,7 +302,7 @@
 				<version>3.0.0-M1</version>
 			</plugin>
 
-			<plugin>
+	<!-- 		<plugin>
 				<groupId>com.github.temyers</groupId>
 				<artifactId>cucumber-jvm-parallel-plugin</artifactId>
 				<version>5.0.0</version>
@@ -328,7 +328,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
